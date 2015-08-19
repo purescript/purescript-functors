@@ -1,6 +1,6 @@
 ## Module Data.Functor.Product
 
-Functor products
+`Functor`/`Monad` products
 
 #### `Product`
 
@@ -16,6 +16,10 @@ newtype Product f g a
 instance functorProduct :: (Functor f, Functor g) => Functor (Product f g)
 instance foldableProduct :: (Foldable f, Foldable g) => Foldable (Product f g)
 instance traversableProduct :: (Traversable f, Traversable g) => Traversable (Product f g)
+instance applyProduct :: (Apply f, Apply g) => Apply (Product f g)
+instance applicativeProduct :: (Applicative f, Applicative g) => Applicative (Product f g)
+instance bindProduct :: (Bind f, Bind g) => Bind (Product f g)
+instance monadProduct :: (Monad f, Monad g) => Monad (Product f g)
 ```
 
 #### `runProduct`

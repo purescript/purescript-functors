@@ -1,4 +1,4 @@
--- | Functor products
+-- | `Functor`/`Monad` products
 
 module Data.Functor.Product
   ( Product(..)
@@ -32,3 +32,14 @@ instance foldableProduct :: (Foldable f, Foldable g) => Foldable (Product f g) w
 instance traversableProduct :: (Traversable f, Traversable g) => Traversable (Product f g) where
   traverse f (Product (Tuple fa ga)) = map Product (lift2 Tuple (traverse f fa) (traverse f ga))
   sequence (Product (Tuple fa ga)) = map Product (lift2 Tuple (sequence fa) (sequence ga))
+  
+instance applyProduct :: (Apply f, Apply g) => Apply (Product f g) where
+  apply (Product (Tuple f g)) (Product (Tuple a b)) = Product (Tuple (apply f a) (apply g b))
+  
+instance applicativeProduct :: (Applicative f, Applicative g) => Applicative (Product f g) where
+  pure a = Product (Tuple (pure a) (pure a))
+ 
+instance bindProduct :: (Bind f, Bind g) => Bind (Product f g) where
+  bind (Product (Tuple fa ga)) f = Product (Tuple (fa >>= fst <<< runProduct <<< f) (ga >>= snd <<< runProduct <<< f))
+
+instance monadProduct :: (Monad f, Monad g) => Monad (Product f g)
