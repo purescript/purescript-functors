@@ -30,4 +30,12 @@ runProduct :: forall f g a. Product f g a -> Tuple (f a) (g a)
 
 Unwrap a product
 
+#### `product`
+
+``` purescript
+product :: forall f g a. f a -> g a -> Product f g a
+```
+
+Create a product.
+
 
