@@ -6,11 +6,11 @@ module Data.Functor.Product
   , product
   ) where
 
-import Prelude
+import Prelude (class Monad, class Bind, class Applicative, class Apply, class Functor, (<<<), (>>=), pure, apply, (<>), map)
 
 import Data.Tuple (Tuple(..), fst, snd)
-import Data.Foldable (Foldable, foldr, foldl, foldMap)
-import Data.Traversable (Traversable, traverse, sequence)
+import Data.Foldable (class Foldable, foldr, foldl, foldMap)
+import Data.Traversable (class Traversable, traverse, sequence)
 import Data.Bifunctor (bimap)
 
 import Control.Apply (lift2)
@@ -37,15 +37,15 @@ instance foldableProduct :: (Foldable f, Foldable g) => Foldable (Product f g) w
 instance traversableProduct :: (Traversable f, Traversable g) => Traversable (Product f g) where
   traverse f (Product (Tuple fa ga)) = lift2 product (traverse f fa) (traverse f ga)
   sequence (Product (Tuple fa ga)) = lift2 product (sequence fa) (sequence ga)
-  
+
 instance applyProduct :: (Apply f, Apply g) => Apply (Product f g) where
   apply (Product (Tuple f g)) (Product (Tuple a b)) = product (apply f a) (apply g b)
-  
+
 instance applicativeProduct :: (Applicative f, Applicative g) => Applicative (Product f g) where
   pure a = product (pure a) (pure a)
- 
+
 instance bindProduct :: (Bind f, Bind g) => Bind (Product f g) where
-  bind (Product (Tuple fa ga)) f = product (fa >>= fst <<< runProduct <<< f) 
+  bind (Product (Tuple fa ga)) f = product (fa >>= fst <<< runProduct <<< f)
                                            (ga >>= snd <<< runProduct <<< f)
 
 instance monadProduct :: (Monad f, Monad g) => Monad (Product f g)
