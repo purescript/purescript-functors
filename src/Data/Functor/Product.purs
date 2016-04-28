@@ -13,7 +13,10 @@ import Data.Foldable (Foldable, foldr, foldl, foldMap)
 import Data.Traversable (Traversable, traverse, sequence)
 import Data.Bifunctor (bimap)
 
+import Control.Alt (Alt, alt)
+import Control.Alternative (Alternative)
 import Control.Apply (lift2)
+import Control.Plus (Plus, empty)
 
 -- | `Product f g` is the product of the two functors `f` and `g`.
 newtype Product f g a = Product (Tuple (f a) (g a))
@@ -47,5 +50,13 @@ instance applicativeProduct :: (Applicative f, Applicative g) => Applicative (Pr
 instance bindProduct :: (Bind f, Bind g) => Bind (Product f g) where
   bind (Product (Tuple fa ga)) f = product (fa >>= fst <<< runProduct <<< f) 
                                            (ga >>= snd <<< runProduct <<< f)
+
+instance altProduct :: (Alt f, Alt g) => Alt (Product f g) where
+  alt (Product (Tuple fa ga)) (Product (Tuple fb gb)) = Product (Tuple (alt fa fb) (alt ga gb))
+
+instance plusProduct :: (Plus f, Plus g) => Plus (Product f g) where
+  empty = Product (Tuple empty empty)
+
+instance alternativeProduct :: (Alternative f, Alternative g) => Alternative (Product f g) where
 
 instance monadProduct :: (Monad f, Monad g) => Monad (Product f g)
