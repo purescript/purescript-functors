@@ -17,6 +17,7 @@ import Control.Alt (Alt, alt)
 import Control.Alternative (Alternative)
 import Control.Apply (lift2)
 import Control.Plus (Plus, empty)
+import Control.MonadPlus (MonadPlus)
 
 -- | `Product f g` is the product of the two functors `f` and `g`.
 newtype Product f g a = Product (Tuple (f a) (g a))
@@ -58,5 +59,7 @@ instance plusProduct :: (Plus f, Plus g) => Plus (Product f g) where
   empty = Product (Tuple empty empty)
 
 instance alternativeProduct :: (Alternative f, Alternative g) => Alternative (Product f g) where
+
+instance monadPlusProduct :: (MonadPlus f, MonadPlus g) => MonadPlus (Product f g) where
 
 instance monadProduct :: (Monad f, Monad g) => Monad (Product f g)
