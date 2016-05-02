@@ -1,5 +1,6 @@
 {
   "name": "purescript-functors",
+  "license": "MIT",
   "moduleType": [
     "node"
   ],
