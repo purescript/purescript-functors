@@ -2,6 +2,8 @@ module Data.Functor.Coproduct where
 
 import Prelude
 
+import Control.Extend (class Extend, extend)
+import Control.Comonad (class Comonad, extract)
 import Data.Bifunctor (bimap)
 import Data.Either (Either(..))
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
@@ -46,6 +48,14 @@ instance showCoproduct :: (Show (f a), Show (g a)) => Show (Coproduct f g a) whe
 
 instance functorCoproduct :: (Functor f, Functor g) => Functor (Coproduct f g) where
   map f (Coproduct e) = Coproduct (bimap (map f) (map f) e)
+
+instance extendCoproduct :: (Extend f, Extend g) => Extend (Coproduct f g) where
+  extend f = Coproduct <<< coproduct
+    (Left <<< extend (f <<< Coproduct <<< Left))
+    (Right <<< extend (f <<< Coproduct <<< Right))
+
+instance comonadCoproduct :: (Comonad f, Comonad g) => Comonad (Coproduct f g) where
+  extract = coproduct extract extract
 
 instance foldableCoproduct :: (Foldable f, Foldable g) => Foldable (Coproduct f g) where
   foldr f z = coproduct (foldr f z) (foldr f z)
