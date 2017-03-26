@@ -5,8 +5,12 @@ import Prelude
 import Control.Alt (class Alt, alt)
 import Control.Alternative (class Alternative)
 import Control.Plus (class Plus, empty)
+
+import Data.Eq (class Eq1, eq1)
 import Data.Foldable (class Foldable, foldl, foldMap, foldr)
+import Data.Functor.App (hoistLiftApp)
 import Data.Newtype (class Newtype)
+import Data.Ord (class Ord1, compare1)
 import Data.Traversable (class Traversable, traverse)
 
 -- | `Compose f g` is the composition of the two functors `f` and `g`.
@@ -23,9 +27,19 @@ bihoistCompose natF natG (Compose fga) = Compose (natF (map natG fga))
 
 derive instance newtypeCompose :: Newtype (Compose f g a) _
 
-derive newtype instance eqCompose :: Eq (f (g a)) => Eq (Compose f g a)
+instance eq1Compose :: (Eq1 f, Eq1 g) => Eq1 (Compose f g) where
+  eq1 (Compose fga1) (Compose fga2) =
+    eq1 (hoistLiftApp fga1) (hoistLiftApp fga2)
 
-derive newtype instance ordCompose :: Ord (f (g a)) => Ord (Compose f g a)
+instance eqCompose :: (Eq1 f, Eq1 g, Eq a) => Eq (Compose f g a) where
+  eq = eq1
+
+instance ord1Compose :: (Ord1 f, Ord1 g) => Ord1 (Compose f g) where
+  compare1 (Compose fga1) (Compose fga2) =
+    compare1 (hoistLiftApp fga1) (hoistLiftApp fga2)
+
+instance ordCompose :: (Ord1 f, Ord1 g, Ord a) => Ord (Compose f g a) where
+  compare = compare1
 
 instance showCompose :: Show (f (g a)) => Show (Compose f g a) where
   show (Compose fga) = "(Compose " <> show fga <> ")"

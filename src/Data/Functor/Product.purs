@@ -5,8 +5,10 @@ import Prelude
 import Control.Apply (lift2)
 
 import Data.Bifunctor (bimap)
+import Data.Eq (class Eq1, eq1)
 import Data.Foldable (class Foldable, foldr, foldl, foldMap)
 import Data.Newtype (class Newtype, unwrap)
+import Data.Ord (class Ord1, compare1)
 import Data.Traversable (class Traversable, traverse, sequence)
 import Data.Tuple (Tuple(..), fst, snd)
 
@@ -27,9 +29,20 @@ bihoistProduct natF natG (Product e) = Product (bimap natF natG e)
 
 derive instance newtypeProduct :: Newtype (Product f g a) _
 
-derive instance eqProduct :: (Eq (f a), Eq (g a)) => Eq (Product f g a)
+instance eqProduct :: (Eq1 f, Eq1 g, Eq a) => Eq (Product f g a) where
+  eq = eq1
 
-derive instance ordProduct :: (Ord (f a), Ord (g a)) => Ord (Product f g a)
+instance eq1Product :: (Eq1 f, Eq1 g) => Eq1 (Product f g) where
+  eq1 (Product (Tuple l1 r1)) (Product (Tuple l2 r2)) = eq1 l1 l2 && eq1 r1 r2
+
+instance ordProduct :: (Ord1 f, Ord1 g, Ord a) => Ord (Product f g a) where
+  compare = compare1
+
+instance ord1Product :: (Ord1 f, Ord1 g) => Ord1 (Product f g) where
+  compare1 (Product (Tuple l1 r1)) (Product (Tuple l2 r2)) =
+    case compare1 l1 l2 of
+      EQ -> compare1 r1 r2
+      o -> o
 
 instance showProduct :: (Show (f a), Show (g a)) => Show (Product f g a) where
   show (Product (Tuple fa ga)) = "(product " <> show fa <> " " <> show ga <> ")"

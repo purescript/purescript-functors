@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "purescript-const": "^3.0.0",
-    "purescript-either": "^3.0.0"
+    "purescript-either": "^3.0.0",
+    "purescript-unsafe-coerce": "^3.0.0"
   }
 }
