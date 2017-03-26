@@ -4,7 +4,7 @@ import Prelude
 
 import Data.Const (Const)
 import Data.Either (Either(..))
-import Data.Functor.Coproduct (Coproduct(..), left, right)
+import Data.Functor.Coproduct (Coproduct(..), coproduct, left, right)
 import Data.Newtype (unwrap)
 
 type Coproduct1 a = C2 a (Const Void)
@@ -28,6 +28,9 @@ type C8 a b c d e f g z = Coproduct a (C7 b c d e f g z)
 type C9 a b c d e f g h z = Coproduct a (C8 b c d e f g h z)
 type C10 a b c d e f g h i z = Coproduct a (C9 b c d e f g h i z)
 type C11 a b c d e f g h i j z = Coproduct a (C10 b c d e f g h i j z)
+
+infixr 6 coproduct as <\/>
+infixr 6 type Coproduct as <\/>
 
 in1 :: forall a z. a ~> C2 a z
 in1 = left

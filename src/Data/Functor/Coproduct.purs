@@ -4,10 +4,13 @@ import Prelude
 
 import Control.Extend (class Extend, extend)
 import Control.Comonad (class Comonad, extract)
+
 import Data.Bifunctor (bimap)
 import Data.Either (Either(..))
+import Data.Eq (class Eq1, eq1)
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.Newtype (class Newtype)
+import Data.Ord (class Ord1, compare1)
 import Data.Traversable (class Traversable, traverse, sequence)
 
 -- | `Coproduct f g` is the coproduct of two functors `f` and `g`
@@ -38,9 +41,26 @@ bihoistCoproduct natF natG (Coproduct e) = Coproduct (bimap natF natG e)
 
 derive instance newtypeCoproduct :: Newtype (Coproduct f g a) _
 
-derive instance eqCoproduct :: (Eq (f a), Eq (g a)) => Eq (Coproduct f g a)
+instance eqCoproduct :: (Eq1 f, Eq1 g, Eq a) => Eq (Coproduct f g a) where
+  eq = eq1
 
-derive instance ordCoproduct :: (Ord (f a), Ord (g a)) => Ord (Coproduct f g a)
+instance eq1Coproduct :: (Eq1 f, Eq1 g) => Eq1 (Coproduct f g) where
+  eq1 (Coproduct x) (Coproduct y) =
+    case x, y of
+      Left fa, Left ga -> eq1 fa ga
+      Right fa, Right ga -> eq1 fa ga
+      _, _ -> false
+
+instance ordCoproduct :: (Ord1 f, Ord1 g, Ord a) => Ord (Coproduct f g a) where
+  compare = compare1
+
+instance ord1Coproduct :: (Ord1 f, Ord1 g) => Ord1 (Coproduct f g) where
+  compare1 (Coproduct x) (Coproduct y) =
+    case x, y of
+      Left fa, Left ga -> compare1 fa ga
+      Left _, _ -> LT
+      _, Left _ -> GT
+      Right fa, Right ga -> compare1 fa ga
 
 instance showCoproduct :: (Show (f a), Show (g a)) => Show (Coproduct f g a) where
   show (Coproduct (Left fa)) = "(left " <> show fa <> ")"

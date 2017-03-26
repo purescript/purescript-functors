@@ -28,37 +28,38 @@ type T9 a b c d e f g h z = Product a (T8 b c d e f g h z)
 type T10 a b c d e f g h i z = Product a (T9 b c d e f g h i z)
 type T11 a b c d e f g h i j z = Product a (T10 b c d e f g h i j z)
 
-infixr 6 product as /\
+infixr 6 product as </\>
+infixr 6 type Product as </\>
 
 product1 :: forall a. a ~> Product1 a
-product1 a = a /\ Const unit
+product1 a = a </\> Const unit
 
 product2 :: forall a b x. a x -> b x -> Product2 a b x
-product2 a b = a /\ b /\ Const unit
+product2 a b = a </\> b </\> Const unit
 
 product3 :: forall a b c x. a x -> b x -> c x -> Product3 a b c x
-product3 a b c = a /\ b /\ c /\ Const unit
+product3 a b c = a </\> b </\> c </\> Const unit
 
 product4 :: forall a b c d x. a x -> b x -> c x -> d x -> Product4 a b c d x
-product4 a b c d = a /\ b /\ c /\ d /\ Const unit
+product4 a b c d = a </\> b </\> c </\> d </\> Const unit
 
 product5 :: forall a b c d e x. a x -> b x -> c x -> d x -> e x -> Product5 a b c d e x
-product5 a b c d e = a /\ b /\ c /\ d /\ e /\ Const unit
+product5 a b c d e = a </\> b </\> c </\> d </\> e </\> Const unit
 
 product6 :: forall a b c d e f x. a x -> b x -> c x -> d x -> e x -> f x -> Product6 a b c d e f x
-product6 a b c d e f = a /\ b /\ c /\ d /\ e /\ f /\ Const unit
+product6 a b c d e f = a </\> b </\> c </\> d </\> e </\> f </\> Const unit
 
 product7 :: forall a b c d e f g x. a x -> b x -> c x -> d x -> e x -> f x -> g x -> Product7 a b c d e f g x
-product7 a b c d e f g = a /\ b /\ c /\ d /\ e /\ f /\ g /\ Const unit
+product7 a b c d e f g = a </\> b </\> c </\> d </\> e </\> f </\> g </\> Const unit
 
 product8 :: forall a b c d e f g h x. a x -> b x -> c x -> d x -> e x -> f x -> g x -> h x -> Product8 a b c d e f g h x
-product8 a b c d e f g h = a /\ b /\ c /\ d /\ e /\ f /\ g /\ h /\ Const unit
+product8 a b c d e f g h = a </\> b </\> c </\> d </\> e </\> f </\> g </\> h </\> Const unit
 
 product9 :: forall a b c d e f g h i x. a x -> b x -> c x -> d x -> e x -> f x -> g x -> h x -> i x -> Product9 a b c d e f g h i x
-product9 a b c d e f g h i = a /\ b /\ c /\ d /\ e /\ f /\ g /\ h /\ i /\ Const unit
+product9 a b c d e f g h i = a </\> b </\> c </\> d </\> e </\> f </\> g </\> h </\> i </\> Const unit
 
 product10 :: forall a b c d e f g h i j x. a x -> b x -> c x -> d x -> e x -> f x -> g x -> h x -> i x -> j x -> Product10 a b c d e f g h i j x
-product10 a b c d e f g h i j = a /\ b /\ c /\ d /\ e /\ f /\ g /\ h /\ i /\ j /\ Const unit
+product10 a b c d e f g h i j = a </\> b </\> c </\> d </\> e </\> f </\> g </\> h </\> i </\> j </\> Const unit
 
 get1 :: forall a z. T2 a z ~> a
 get1 (Product (Tuple a _)) = a
