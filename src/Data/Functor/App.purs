@@ -3,6 +3,7 @@ module Data.Functor.App where
 import Prelude
 
 import Control.Alt (class Alt)
+import Control.Apply (lift2)
 import Control.Alternative (class Alternative)
 import Control.Comonad (class Comonad)
 import Control.Extend (class Extend)
@@ -12,6 +13,7 @@ import Control.Plus (class Plus)
 
 import Data.Eq (class Eq1, eq1)
 import Data.Foldable (class Foldable)
+import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (class Newtype)
 import Data.Ord (class Ord1, compare1)
 import Data.Traversable (class Traversable)
@@ -49,6 +51,12 @@ instance ord1App :: Ord1 f => Ord1 (App f) where
 
 instance showApp :: Show (f a) => Show (App f a) where
   show (App fa) = "(App " <> show fa <> ")"
+
+instance semigroupApp :: (Apply f, Semigroup a) => Semigroup (App f a) where
+  append (App fa1) (App fa2) = App (lift2 append fa1 fa2)
+
+instance monoidApp :: (Applicative f, Monoid a) => Monoid (App f a) where
+  mempty = App (pure mempty)
 
 derive newtype instance functorApp :: Functor f => Functor (App f)
 derive newtype instance applyApp :: Apply f => Apply (App f)
