@@ -27,9 +27,7 @@ bihoistCompose natF natG (Compose fga) = Compose (natF (map natG fga))
 
 derive instance newtypeCompose :: Newtype (Compose f g a) _
 
-instance eq1Compose :: (Eq1 f, Eq1 g) => Eq1 (Compose f g) where
-  eq1 (Compose fga1) (Compose fga2) =
-    eq1 (hoistLiftApp fga1) (hoistLiftApp fga2)
+derive instance eq1Compose :: (Eq1 f, Eq1 g) => Eq1 (Compose f g)
 
 instance eqCompose :: (Eq1 f, Eq1 g, Eq a) => Eq (Compose f g a) where
   eq = eq1
@@ -60,7 +58,7 @@ instance foldableCompose :: (Foldable f, Foldable g) => Foldable (Compose f g) w
 
 instance traversableCompose :: (Traversable f, Traversable g) => Traversable (Compose f g) where
   traverse f (Compose fga) = map Compose $ traverse (traverse f) fga
-  sequence = traverse id
+  sequence = traverse identity
 
 instance altCompose :: (Alt f, Functor g) => Alt (Compose f g) where
   alt (Compose a) (Compose b) = Compose $ alt a b
