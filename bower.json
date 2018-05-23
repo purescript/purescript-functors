@@ -2,7 +2,7 @@
   "name": "purescript-functors",
   "homepage": "https://github.com/purescript/purescript-functors",
   "description": "Functor products, coproducts, and composition",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git://github.com/purescript/purescript-functors.git"
@@ -17,8 +17,15 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-const": "#compiler/0.12",
-    "purescript-either": "#compiler/0.12",
-    "purescript-unsafe-coerce": "#compiler/0.12"
+    "purescript-bifunctors": "^4.0.0",
+    "purescript-const": "^4.0.0",
+    "purescript-control": "^4.0.0",
+    "purescript-either": "^4.0.0",
+    "purescript-foldable-traversable": "^4.0.0",
+    "purescript-maybe": "^4.0.0",
+    "purescript-newtype": "^3.0.0",
+    "purescript-prelude": "^4.0.0",
+    "purescript-tuples": "^5.0.0",
+    "purescript-unsafe-coerce": "^4.0.0"
   }
 }
