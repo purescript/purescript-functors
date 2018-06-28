@@ -27,17 +27,17 @@ bihoistCompose natF natG (Compose fga) = Compose (natF (map natG fga))
 
 derive instance newtypeCompose :: Newtype (Compose f g a) _
 
+instance eqCompose :: (Eq1 f, Eq1 g, Eq a) => Eq (Compose f g a) where
+  eq (Compose fga1) (Compose fga2) =
+    eq1 (hoistLiftApp fga1) (hoistLiftApp fga2)
+
 derive instance eq1Compose :: (Eq1 f, Eq1 g) => Eq1 (Compose f g)
 
-instance eqCompose :: (Eq1 f, Eq1 g, Eq a) => Eq (Compose f g a) where
-  eq = eq1
-
-instance ord1Compose :: (Ord1 f, Ord1 g) => Ord1 (Compose f g) where
-  compare1 (Compose fga1) (Compose fga2) =
+instance ordCompose :: (Ord1 f, Ord1 g, Ord a) => Ord (Compose f g a) where
+  compare (Compose fga1) (Compose fga2) =
     compare1 (hoistLiftApp fga1) (hoistLiftApp fga2)
 
-instance ordCompose :: (Ord1 f, Ord1 g, Ord a) => Ord (Compose f g a) where
-  compare = compare1
+derive instance ord1Compose :: (Ord1 f, Ord1 g) => Ord1 (Compose f g)
 
 instance showCompose :: Show (f (g a)) => Show (Compose f g a) where
   show (Compose fga) = "(Compose " <> show fga <> ")"
