@@ -5,13 +5,16 @@ import Prelude
 import Control.Alt (class Alt, alt)
 import Control.Alternative (class Alternative)
 import Control.Plus (class Plus, empty)
-
 import Data.Eq (class Eq1, eq1)
 import Data.Foldable (class Foldable, foldl, foldMap, foldr)
+import Data.FoldableWithIndex (class FoldableWithIndex, foldMapWithIndex, foldlWithIndex, foldrWithIndex)
 import Data.Functor.App (hoistLiftApp)
+import Data.FunctorWithIndex (class FunctorWithIndex, mapWithIndex)
 import Data.Newtype (class Newtype)
 import Data.Ord (class Ord1, compare1)
 import Data.Traversable (class Traversable, traverse)
+import Data.TraversableWithIndex (class TraversableWithIndex, traverseWithIndex)
+import Data.Tuple (Tuple, curry)
 
 -- | `Compose f g` is the composition of the two functors `f` and `g`.
 newtype Compose f g a = Compose (f (g a))
@@ -45,6 +48,9 @@ instance showCompose :: Show (f (g a)) => Show (Compose f g a) where
 instance functorCompose :: (Functor f, Functor g) => Functor (Compose f g) where
   map f (Compose fga) = Compose $ map f <$> fga
 
+instance functorWithIndexCompose :: (FunctorWithIndex a f, FunctorWithIndex b g) => FunctorWithIndex (Tuple a b) (Compose f g) where
+  mapWithIndex f (Compose fga) = Compose $ mapWithIndex (mapWithIndex <<< curry f) fga
+
 instance applyCompose :: (Apply f, Apply g) => Apply (Compose f g) where
   apply (Compose f) (Compose x) = Compose $ apply <$> f <*> x
 
@@ -56,9 +62,17 @@ instance foldableCompose :: (Foldable f, Foldable g) => Foldable (Compose f g) w
   foldl f i (Compose fga) = foldl (foldl f) i fga
   foldMap f (Compose fga) = foldMap (foldMap f) fga
 
+instance foldableWithIndexCompose :: (FoldableWithIndex a f, FoldableWithIndex b g) => FoldableWithIndex (Tuple a b) (Compose f g) where
+  foldrWithIndex f i (Compose fga) = foldrWithIndex (\a -> flip (foldrWithIndex (curry f a))) i fga
+  foldlWithIndex f i (Compose fga) = foldlWithIndex (foldlWithIndex <<< curry f) i fga
+  foldMapWithIndex f (Compose fga) = foldMapWithIndex (foldMapWithIndex <<< curry f) fga
+
 instance traversableCompose :: (Traversable f, Traversable g) => Traversable (Compose f g) where
   traverse f (Compose fga) = map Compose $ traverse (traverse f) fga
   sequence = traverse identity
+
+instance traversableWithIndexCompose :: (TraversableWithIndex a f, TraversableWithIndex b g) => TraversableWithIndex (Tuple a b) (Compose f g) where
+  traverseWithIndex f (Compose fga) = map Compose $ traverseWithIndex (traverseWithIndex <<< curry f) fga
 
 instance altCompose :: (Alt f, Functor g) => Alt (Compose f g) where
   alt (Compose a) (Compose b) = Compose $ alt a b

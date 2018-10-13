@@ -3,13 +3,16 @@ module Data.Functor.Product where
 import Prelude
 
 import Control.Apply (lift2)
-
 import Data.Bifunctor (bimap)
+import Data.Either (Either(..))
 import Data.Eq (class Eq1, eq1)
 import Data.Foldable (class Foldable, foldr, foldl, foldMap)
+import Data.FoldableWithIndex (class FoldableWithIndex, foldMapWithIndex, foldlWithIndex, foldrWithIndex)
+import Data.FunctorWithIndex (class FunctorWithIndex, mapWithIndex)
 import Data.Newtype (class Newtype, unwrap)
 import Data.Ord (class Ord1, compare1)
 import Data.Traversable (class Traversable, traverse, sequence)
+import Data.TraversableWithIndex (class TraversableWithIndex, traverseWithIndex)
 import Data.Tuple (Tuple(..), fst, snd)
 
 -- | `Product f g` is the product of the two functors `f` and `g`.
@@ -58,6 +61,17 @@ instance foldableProduct :: (Foldable f, Foldable g) => Foldable (Product f g) w
 instance traversableProduct :: (Traversable f, Traversable g) => Traversable (Product f g) where
   traverse f (Product (Tuple fa ga)) = lift2 product (traverse f fa) (traverse f ga)
   sequence (Product (Tuple fa ga)) = lift2 product (sequence fa) (sequence ga)
+
+instance functorWithIndexProduct :: (FunctorWithIndex a f, FunctorWithIndex b g) => FunctorWithIndex (Either a b) (Product f g) where
+  mapWithIndex f (Product fga) = Product (bimap (mapWithIndex (f <<< Left)) (mapWithIndex (f <<< Right)) fga)
+
+instance foldableWithIndexProduct :: (FoldableWithIndex a f, FoldableWithIndex b g) => FoldableWithIndex (Either a b) (Product f g) where
+  foldrWithIndex f z (Product (Tuple fa ga)) = foldrWithIndex (f <<< Left) (foldrWithIndex (f <<< Right) z ga) fa
+  foldlWithIndex f z (Product (Tuple fa ga)) = foldlWithIndex (f <<< Right) (foldlWithIndex (f <<< Left) z fa) ga
+  foldMapWithIndex f (Product (Tuple fa ga)) = foldMapWithIndex (f <<< Left) fa <> foldMapWithIndex (f <<< Right) ga
+
+instance traversableWithIndexProduct :: (TraversableWithIndex a f, TraversableWithIndex b g) => TraversableWithIndex (Either a b) (Product f g) where
+  traverseWithIndex f (Product (Tuple fa ga)) = lift2 product (traverseWithIndex (f <<< Left) fa) (traverseWithIndex (f <<< Right) ga)
 
 instance applyProduct :: (Apply f, Apply g) => Apply (Product f g) where
   apply (Product (Tuple f g)) (Product (Tuple a b)) = product (apply f a) (apply g b)
