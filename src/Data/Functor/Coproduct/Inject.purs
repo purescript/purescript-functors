@@ -10,14 +10,14 @@ class Inject f g where
   inj :: forall a. f a -> g a
   prj :: forall a. g a -> Maybe (f a)
 
-instance injectLeft :: Inject f (Coproduct f g) where
+instance injectReflexive :: Inject f f where
+  inj = identity
+  prj = Just
+
+else instance injectLeft :: Inject f (Coproduct f g) where
   inj = Coproduct <<< Left
   prj = coproduct Just (const Nothing)
 
 else instance injectRight :: Inject f g => Inject f (Coproduct h g) where
   inj = Coproduct <<< Right <<< inj
   prj = coproduct (const Nothing) prj
-
-else instance injectReflexive :: Inject f f where
-  inj = identity
-  prj = Just
