@@ -20,6 +20,7 @@ import Data.Traversable (class Traversable)
 import Data.TraversableWithIndex (class TraversableWithIndex)
 import Unsafe.Coerce (unsafeCoerce)
 
+-- | `App` witnesses the lifting of a `Monoid` into an `Applicative` pointwise.
 newtype App f a = App (f a)
 
 hoistApp :: forall f g. (f ~> g) -> App f ~> App g
