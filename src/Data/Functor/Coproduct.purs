@@ -16,6 +16,7 @@ import Data.Traversable (class Traversable, traverse, sequence)
 import Data.TraversableWithIndex (class TraversableWithIndex, traverseWithIndex)
 
 -- | `Coproduct f g` is the coproduct of two functors `f` and `g`
+newtype Coproduct :: forall k. (k -> Type) -> (k -> Type) -> k -> Type
 newtype Coproduct f g a = Coproduct (Either (f a) (g a))
 
 -- | Left injection

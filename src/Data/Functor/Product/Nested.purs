@@ -6,26 +6,46 @@ import Data.Const (Const(..))
 import Data.Functor.Product (Product(..), product)
 import Data.Tuple (Tuple(..))
 
+type Product1 ∷ ∀ k. (k → Type) → k → Type
 type Product1 a = T2 a (Const Unit)
+type Product2 ∷ ∀ k. (k → Type) → (k → Type) → k → Type
 type Product2 a b = T3 a b (Const Unit)
+type Product3 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product3 a b c = T4 a b c (Const Unit)
+type Product4 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product4 a b c d = T5 a b c d (Const Unit)
+type Product5 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product5 a b c d e= T6 a b c d e (Const Unit)
+type Product6 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product6 a b c d e f = T7 a b c d e f (Const Unit)
+type Product7 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product7 a b c d e f g = T8 a b c d e f g (Const Unit)
+type Product8 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product8 a b c d e f g h = T9 a b c d e f g h (Const Unit)
+type Product9 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product9 a b c d e f g h i = T10 a b c d e f g h i (Const Unit)
+type Product10 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type Product10 a b c d e f g h i j = T11 a b c d e f g h i j (Const Unit)
 
+type T2 ∷ ∀ k. (k → Type) → (k → Type) → k → Type
 type T2 a z = Product a z
+type T3 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → k → Type
 type T3 a b z = Product a (T2 b z)
+type T4 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T4 a b c z = Product a (T3 b c z)
+type T5 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T5 a b c d z = Product a (T4 b c d z)
+type T6 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T6 a b c d e z = Product a (T5 b c d e z)
+type T7 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T7 a b c d e f z = Product a (T6 b c d e f z)
+type T8 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T8 a b c d e f g z = Product a (T7 b c d e f g z)
+type T9 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T9 a b c d e f g h z = Product a (T8 b c d e f g h z)
+type T10 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T10 a b c d e f g h i z = Product a (T9 b c d e f g h i z)
+type T11 ∷ ∀ k. (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → (k → Type) → k → Type
 type T11 a b c d e f g h i j z = Product a (T10 b c d e f g h i j z)
 
 infixr 6 product as </\>
