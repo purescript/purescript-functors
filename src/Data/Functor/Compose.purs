@@ -17,7 +17,7 @@ import Data.TraversableWithIndex (class TraversableWithIndex, traverseWithIndex)
 import Data.Tuple (Tuple, curry)
 
 -- | `Compose f g` is the composition of the two functors `f` and `g`.
-newtype Compose ∷ ∀ k1 k2. (k2 → Type) → (k1 → k2) → k1 → Type
+newtype Compose :: forall k1 k2. (k2 -> Type) -> (k1 -> k2) -> k1 -> Type
 newtype Compose f g a = Compose (f (g a))
 
 bihoistCompose
