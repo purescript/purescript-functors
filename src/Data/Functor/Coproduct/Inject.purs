@@ -6,6 +6,7 @@ import Data.Either (Either(..))
 import Data.Functor.Coproduct (Coproduct(..), coproduct)
 import Data.Maybe (Maybe(..))
 
+class Inject :: forall k. (k -> Type) -> (k -> Type) -> Constraint
 class Inject f g where
   inj :: forall a. f a -> g a
   prj :: forall a. g a -> Maybe (f a)

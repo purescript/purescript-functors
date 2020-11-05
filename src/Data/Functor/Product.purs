@@ -16,6 +16,7 @@ import Data.TraversableWithIndex (class TraversableWithIndex, traverseWithIndex)
 import Data.Tuple (Tuple(..), fst, snd)
 
 -- | `Product f g` is the product of the two functors `f` and `g`.
+newtype Product :: forall k. (k -> Type) -> (k -> Type) -> k -> Type
 newtype Product f g a = Product (Tuple (f a) (g a))
 
 -- | Create a product.

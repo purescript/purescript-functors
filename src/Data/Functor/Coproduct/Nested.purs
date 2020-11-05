@@ -7,26 +7,46 @@ import Data.Either (Either(..))
 import Data.Functor.Coproduct (Coproduct(..), coproduct, left, right)
 import Data.Newtype (unwrap)
 
+type Coproduct1 :: forall k. (k -> Type) -> k -> Type
 type Coproduct1 a = C2 a (Const Void)
+type Coproduct2 :: forall k. (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct2 a b = C3 a b (Const Void)
+type Coproduct3 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct3 a b c = C4 a b c (Const Void)
+type Coproduct4 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct4 a b c d = C5 a b c d (Const Void)
+type Coproduct5 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct5 a b c d e = C6 a b c d e (Const Void)
+type Coproduct6 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct6 a b c d e f = C7 a b c d e f (Const Void)
+type Coproduct7 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct7 a b c d e f g = C8 a b c d e f g (Const Void)
+type Coproduct8 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct8 a b c d e f g h = C9 a b c d e f g h (Const Void)
+type Coproduct9 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct9 a b c d e f g h i = C10 a b c d e f g h i (Const Void)
+type Coproduct10 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type Coproduct10 a b c d e f g h i j = C11 a b c d e f g h i j (Const Void)
 
+type C2 :: forall k. (k -> Type) -> (k -> Type) -> k -> Type
 type C2 a z = Coproduct a z
+type C3 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C3 a b z = Coproduct a (C2 b z)
+type C4 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C4 a b c z = Coproduct a (C3 b c z)
+type C5 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C5 a b c d z = Coproduct a (C4 b c d z)
+type C6 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C6 a b c d e z = Coproduct a (C5 b c d e z)
+type C7 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C7 a b c d e f z = Coproduct a (C6 b c d e f z)
+type C8 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C8 a b c d e f g z = Coproduct a (C7 b c d e f g z)
+type C9 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C9 a b c d e f g h z = Coproduct a (C8 b c d e f g h z)
+type C10 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C10 a b c d e f g h i z = Coproduct a (C9 b c d e f g h i z)
+type C11 :: forall k. (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> (k -> Type) -> k -> Type
 type C11 a b c d e f g h i j z = Coproduct a (C10 b c d e f g h i j z)
 
 infixr 6 coproduct as <\/>
