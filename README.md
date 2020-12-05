@@ -1,14 +1,14 @@
 # purescript-functors
 
 [![Latest release](http://img.shields.io/bower/v/purescript-functors.svg)](https://github.com/purescript/purescript-functors/releases)
-[![Build Status](https://travis-ci.org/purescript/purescript-functors.svg?branch=master)](https://travis-ci.org/purescript/purescript-functors)
+[![Build status](https://github.com/purescript/purescript-functors/workflows/CI/badge.svg?branch=master)](https://github.com/purescript/purescript-functors/actions?query=workflow%3ACI+branch%3Amaster)
 
 Functor products, coproducts, and composition.
 
 ## Installation
 
 ```
-bower install purescript-functors
+spago install functors
 ```
 
 ## Documentation
