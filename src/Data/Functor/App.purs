@@ -47,6 +47,8 @@ instance semigroupApp :: (Apply f, Semigroup a) => Semigroup (App f a) where
 instance monoidApp :: (Applicative f, Monoid a) => Monoid (App f a) where
   mempty = App (pure mempty)
 
+instance monadZeroApp :: MonadZero f => MonadZero (App f)
+
 derive newtype instance functorApp :: Functor f => Functor (App f)
 derive newtype instance functorWithIndexApp :: FunctorWithIndex a f => FunctorWithIndex a (App f)
 derive newtype instance applyApp :: Apply f => Apply (App f)
@@ -56,7 +58,6 @@ derive newtype instance monadApp :: Monad f => Monad (App f)
 derive newtype instance altApp :: Alt f => Alt (App f)
 derive newtype instance plusApp :: Plus f => Plus (App f)
 derive newtype instance alternativeApp :: Alternative f => Alternative (App f)
-derive newtype instance monadZeroApp :: MonadZero f => MonadZero (App f)
 derive newtype instance monadPlusApp :: MonadPlus f => MonadPlus (App f)
 derive newtype instance lazyApp :: Lazy (f a) => Lazy (App f a)
 derive newtype instance foldableApp :: Foldable f => Foldable (App f)
