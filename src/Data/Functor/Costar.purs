@@ -8,10 +8,6 @@ import Control.Extend (class Extend, (=<=))
 import Data.Distributive (class Distributive, distribute)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Newtype (class Newtype)
-import Data.Profunctor (class Profunctor, lcmap)
-import Data.Profunctor.Closed (class Closed)
-import Data.Profunctor.Strong (class Strong)
-import Data.Tuple (Tuple(..), fst, snd)
 
 -- | `Costar` turns a `Functor` into a `Profunctor` "backwards".
 -- |
@@ -47,16 +43,3 @@ instance monadCostar :: Monad (Costar f a)
 instance distributiveCostar :: Distributive (Costar f a) where
   distribute f = Costar \a -> map (\(Costar g) -> g a) f
   collect f = distribute <<< map f
-
-instance profunctorCostar :: Functor f => Profunctor (Costar f) where
-  dimap f g (Costar h) = Costar (map f >>> h >>> g)
-
-instance strongCostar :: Comonad f => Strong (Costar f) where
-  first (Costar f) = Costar \x -> Tuple (f (map fst x)) (snd (extract x))
-  second (Costar f) = Costar \x -> Tuple (fst (extract x)) (f (map snd x))
-
-instance closedCostar :: Functor f => Closed (Costar f) where
-  closed (Costar f) = Costar \g x -> f (map (_ $ x) g)
-
-hoistCostar :: forall f g a b. (g ~> f) -> Costar f a b -> Costar g a b
-hoistCostar f (Costar g) = Costar (lcmap f g)

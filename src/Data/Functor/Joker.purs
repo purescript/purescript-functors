@@ -2,11 +2,7 @@ module Data.Functor.Joker where
 
 import Prelude
 
-import Control.Biapplicative (class Biapplicative)
-import Control.Biapply (class Biapply)
-
-import Data.Bifunctor (class Bifunctor)
-import Data.Newtype (class Newtype)
+import Data.Newtype (class Newtype, un)
 
 -- | Make a `Functor` over the second argument of a `Bifunctor`
 newtype Joker :: forall k1 k2. (k1 -> Type) -> k2 -> k1 -> Type
@@ -34,15 +30,6 @@ instance bindJoker :: Bind f => Bind (Joker f a) where
   bind (Joker ma) amb = Joker $ ma >>= (amb >>> un Joker)
 
 instance monadJoker :: Monad m => Monad (Joker m a)
-
-instance bifunctorJoker :: Functor f => Bifunctor (Joker f) where
-  bimap _ f (Joker a) = Joker (map f a)
-
-instance biapplyJoker :: Apply f => Biapply (Joker f) where
-  biapply (Joker fg) (Joker xy) = Joker (fg <*> xy)
-
-instance biapplicativeJoker :: Applicative f => Biapplicative (Joker f) where
-  bipure _ b = Joker (pure b)
 
 hoistJoker :: forall f g a b. (f ~> g) -> Joker f a b -> Joker g a b
 hoistJoker f (Joker a) = Joker (f a)

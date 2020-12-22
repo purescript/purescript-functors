@@ -9,14 +9,8 @@ import Control.MonadZero (class MonadZero)
 import Control.Plus (class Plus, empty)
 
 import Data.Distributive (class Distributive, distribute, collect)
-import Data.Either (Either(..), either)
 import Data.Functor.Invariant (class Invariant, imap)
 import Data.Newtype (class Newtype)
-import Data.Profunctor (class Profunctor)
-import Data.Profunctor.Choice (class Choice)
-import Data.Profunctor.Closed (class Closed)
-import Data.Profunctor.Strong (class Strong)
-import Data.Tuple (Tuple(..))
 
 -- | `Star` turns a `Functor` into a `Profunctor`.
 -- |
@@ -64,20 +58,6 @@ instance monadPlusStar :: MonadPlus f => MonadPlus (Star f a)
 instance distributiveStar :: Distributive f => Distributive (Star f a) where
   distribute f = Star \a -> collect (\(Star g) -> g a) f
   collect f = distribute <<< map f
-
-instance profunctorStar :: Functor f => Profunctor (Star f) where
-  dimap f g (Star ft) = Star (f >>> ft >>> map g)
-
-instance strongStar :: Functor f => Strong (Star f) where
-  first  (Star f) = Star \(Tuple s x) -> map (_ `Tuple` x) (f s)
-  second (Star f) = Star \(Tuple x s) -> map (Tuple x) (f s)
-
-instance choiceStar :: Applicative f => Choice (Star f) where
-  left  (Star f) = Star $ either (map Left <<< f) (pure <<< Right)
-  right (Star f) = Star $ either (pure <<< Left) (map Right <<< f)
-
-instance closedStar :: Distributive f => Closed (Star f) where
-  closed (Star f) = Star \g -> distribute (f <<< g)
 
 hoistStar :: forall f g a b. (f ~> g) -> Star f a b -> Star g a b
 hoistStar f (Star g) = Star (f <<< g)

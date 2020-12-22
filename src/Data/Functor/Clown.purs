@@ -2,10 +2,6 @@ module Data.Functor.Clown where
 
 import Prelude
 
-import Control.Biapplicative (class Biapplicative)
-import Control.Biapply (class Biapply)
-
-import Data.Bifunctor (class Bifunctor)
 import Data.Newtype (class Newtype)
 
 -- | Make a `Functor` over the first argument of a `Bifunctor`
@@ -23,15 +19,6 @@ instance showClown :: Show (f a) => Show (Clown f a b) where
 
 instance functorClown :: Functor (Clown f a) where
   map _ (Clown a) = Clown a
-
-instance bifunctorClown :: Functor f => Bifunctor (Clown f) where
-  bimap f _ (Clown a) = Clown (map f a)
-
-instance biapplyClown :: Apply f => Biapply (Clown f) where
-  biapply (Clown fg) (Clown xy) = Clown (fg <*> xy)
-
-instance biapplicativeClown :: Applicative f => Biapplicative (Clown f) where
-  bipure a _ = Clown (pure a)
 
 hoistClown :: forall f g a b. (f ~> g) -> Clown f a b -> Clown g a b
 hoistClown f (Clown a) = Clown (f a)
