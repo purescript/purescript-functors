@@ -7,6 +7,7 @@ import Control.Extend (class Extend, (=<=))
 
 import Data.Distributive (class Distributive, distribute)
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.Functor.FunctorRight (class FunctorRight)
 import Data.Newtype (class Newtype)
 
 -- | `Costar` turns a `Functor` into a `Profunctor` "backwards".
@@ -25,6 +26,9 @@ instance categoryCostar :: Comonad f => Category (Costar f) where
 
 instance functorCostar :: Functor (Costar f a) where
   map f (Costar g) = Costar (f <<< g)
+
+instance functorRightCostar :: FunctorRight (Costar f) where
+  rmap = map
 
 instance invariantCostar :: Invariant (Costar f a) where
   imap = imapF

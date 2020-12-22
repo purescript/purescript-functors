@@ -2,6 +2,7 @@ module Data.Functor.Joker where
 
 import Prelude
 
+import Data.Functor.FunctorRight (class FunctorRight)
 import Data.Newtype (class Newtype, un)
 
 -- | Make a `Functor` over the second argument of a `Bifunctor`
@@ -19,6 +20,9 @@ instance showJoker :: Show (f b) => Show (Joker f a b) where
 
 instance functorJoker :: Functor f => Functor (Joker f a) where
   map f (Joker a) = Joker (map f a)
+
+instance functorRightJoker :: Functor f => FunctorRight (Joker f) where
+  rmap = map
 
 instance applyJoker :: Apply f => Apply (Joker f a) where
   apply (Joker f) (Joker g) = Joker $ apply f g

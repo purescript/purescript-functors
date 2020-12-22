@@ -2,6 +2,7 @@ module Data.Functor.Wrap where
 
 import Prelude
 
+import Data.Functor.FunctorRight (class FunctorRight, rmap)
 import Data.Newtype (class Newtype)
 
 -- | Provides a `Functor` over the second argument of a `Bifunctor`.
@@ -17,5 +18,5 @@ derive newtype instance ordWrap :: Ord (p a b) => Ord (Wrap p a b)
 instance showWrap :: Show (p a b) => Show (Wrap p a b) where
   show (Wrap x) = "(Wrap " <> show x <> ")"
 
-instance functorWrap :: Bifunctor p => Functor (Wrap p a) where
+instance functorWrap :: FunctorRight p => Functor (Wrap p a) where
   map f (Wrap a) = Wrap (rmap f a)

@@ -10,6 +10,7 @@ import Control.Plus (class Plus, empty)
 
 import Data.Distributive (class Distributive, distribute, collect)
 import Data.Functor.Invariant (class Invariant, imap)
+import Data.Functor.FunctorRight (class FunctorRight)
 import Data.Newtype (class Newtype)
 
 -- | `Star` turns a `Functor` into a `Profunctor`.
@@ -28,6 +29,9 @@ instance categoryStar :: Monad f => Category (Star f) where
 
 instance functorStar :: Functor f => Functor (Star f a) where
   map f (Star g) = Star (map f <<< g)
+
+instance functorRightStar :: Functor f => FunctorRight (Star f) where
+  rmap = map
 
 instance invariantStar :: Invariant f => Invariant (Star f a) where
   imap f g (Star h) = Star (imap f g <<< h)

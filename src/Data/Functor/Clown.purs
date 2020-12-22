@@ -2,6 +2,7 @@ module Data.Functor.Clown where
 
 import Prelude
 
+import Data.Functor.FunctorRight (class FunctorRight)
 import Data.Newtype (class Newtype)
 
 -- | Make a `Functor` over the first argument of a `Bifunctor`
@@ -19,6 +20,9 @@ instance showClown :: Show (f a) => Show (Clown f a b) where
 
 instance functorClown :: Functor (Clown f a) where
   map _ (Clown a) = Clown a
+
+instance functorRightClown :: FunctorRight (Clown f) where
+  rmap = map
 
 hoistClown :: forall f g a b. (f ~> g) -> Clown f a b -> Clown g a b
 hoistClown f (Clown a) = Clown (f a)
