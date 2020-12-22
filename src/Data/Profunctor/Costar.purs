@@ -1,4 +1,4 @@
-module Data.Profunctor.Costar where
+module Data.Functor.Costar where
 
 import Prelude
 

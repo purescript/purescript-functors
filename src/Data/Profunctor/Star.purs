@@ -1,4 +1,4 @@
-module Data.Profunctor.Star where
+module Data.Functor.Star where
 
 import Prelude
 

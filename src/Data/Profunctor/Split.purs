@@ -1,4 +1,4 @@
-module Data.Profunctor.Split
+module Data.Functor.Split
   ( Split
   , split
   , unSplit
