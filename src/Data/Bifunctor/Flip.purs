@@ -1,4 +1,4 @@
-module Data.Bifunctor.Flip where
+module Data.Functor.Flip where
 
 import Prelude
 

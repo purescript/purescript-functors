@@ -1,4 +1,4 @@
-module Data.Bifunctor.Product where
+module Data.Functor.Product where
 
 import Prelude
 

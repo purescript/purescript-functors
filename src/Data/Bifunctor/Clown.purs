@@ -1,4 +1,4 @@
-module Data.Bifunctor.Clown where
+module Data.Functor.Clown where
 
 import Prelude
 

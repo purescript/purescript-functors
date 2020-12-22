@@ -1,4 +1,4 @@
-module Data.Bifunctor.Wrap where
+module Data.Functor.Wrap where
 
 import Prelude
 

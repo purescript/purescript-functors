@@ -1,4 +1,4 @@
-module Data.Bifunctor.Joker where
+module Data.Functor.Joker where
 
 import Prelude
 
