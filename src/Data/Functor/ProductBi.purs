@@ -1,4 +1,4 @@
-module Data.Functor.ProductBi where
+module Data.Functor.Product2 where
 
 import Prelude
 
@@ -7,21 +7,21 @@ import Control.Biapply (class Biapply, biapply)
 
 import Data.Bifunctor (class Bifunctor, bimap)
 
--- | The product of two `Bifunctor`s.
-data Product f g a b = Product (f a b) (g a b)
+-- | The Product of two `Bifunctor`s.
+data Product2 f g a b = Product2 (f a b) (g a b)
 
-derive instance eqProduct :: (Eq (f a b), Eq (g a b)) => Eq (Product f g a b)
+derive instance eqProduct2 :: (Eq (f a b), Eq (g a b)) => Eq (Product2 f g a b)
 
-derive instance ordProduct :: (Ord (f a b), Ord (g a b)) => Ord (Product f g a b)
+derive instance ordProduct2 :: (Ord (f a b), Ord (g a b)) => Ord (Product2 f g a b)
 
-instance showProduct :: (Show (f a b), Show (g a b)) => Show (Product f g a b) where
-  show (Product x y) = "(Product " <> show x <> " " <> show y <> ")"
+instance showProduct2 :: (Show (f a b), Show (g a b)) => Show (Product2 f g a b) where
+  show (Product2 x y) = "(Product2 " <> show x <> " " <> show y <> ")"
 
-instance bifunctorProduct :: (Bifunctor f, Bifunctor g) => Bifunctor (Product f g) where
-  bimap f g (Product x y) = Product (bimap f g x) (bimap f g y)
+instance bifunctorProduct2 :: (Bifunctor f, Bifunctor g) => Bifunctor (Product2 f g) where
+  bimap f g (Product2 x y) = Product2 (bimap f g x) (bimap f g y)
 
-instance biapplyProduct :: (Biapply f, Biapply g) => Biapply (Product f g) where
-  biapply (Product w x) (Product y z) = Product (biapply w y) (biapply x z)
+instance biapplyProduct2 :: (Biapply f, Biapply g) => Biapply (Product2 f g) where
+  biapply (Product2 w x) (Product2 y z) = Product2 (biapply w y) (biapply x z)
 
-instance biapplicativeProduct :: (Biapplicative f, Biapplicative g) => Biapplicative (Product f g) where
-  bipure a b = Product (bipure a b) (bipure a b)
+instance biapplicativeProduct2 :: (Biapplicative f, Biapplicative g) => Biapplicative (Product2 f g) where
+  bipure a b = Product2 (bipure a b) (bipure a b)
