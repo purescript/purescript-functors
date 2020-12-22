@@ -9,6 +9,7 @@ import Data.Bifunctor (class Bifunctor, bimap, rmap)
 import Data.Newtype (class Newtype)
 
 -- | Provides a `Functor` over the second argument of a `Bifunctor`.
+newtype Wrap :: forall k1 k2. (k1 -> k2 -> Type) -> k1 -> k2 -> Type
 newtype Wrap p a b = Wrap (p a b)
 
 derive instance newtypeWrap :: Newtype (Wrap p a b) _
