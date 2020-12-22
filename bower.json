@@ -21,6 +21,7 @@
     "purescript-const": "master",
     "purescript-control": "master",
     "purescript-either": "master",
+    "purescript-exists": "master",
     "purescript-foldable-traversable": "master",
     "purescript-maybe": "master",
     "purescript-newtype": "master",
