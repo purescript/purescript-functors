@@ -5,7 +5,22 @@ import Prelude
 import Data.Functor.FunctorRight (class FunctorRight)
 import Data.Newtype (class Newtype, un)
 
--- | Make a `Functor` over the second argument of a `Bifunctor`
+-- | Lifts a type that takes a single type parameter to a type that takes
+-- | two type parameters where the first parameter is a phantom type.
+-- |
+-- | ```purescript
+-- | data Box a = Box a
+-- | -- these values are the same at runtime
+-- |        Box a  ::       Box        a
+-- | Joker (Box a) :: Joker Box Int    a
+-- | Joker (Box a) :: Joker Box String a
+-- |
+-- | newtype TupleInt a = TupleInt (Tuple Int a)
+-- | -- these values are the same at runtime
+-- |        TupleInt (Tuple 4 true) ::        TupleInt        Boolean
+-- | Joker (TupleInt (Tuple 4 true)) :: Joker TupleInt Int    Boolean
+-- | Joker (TupleInt (Tuple 4 true)) :: Joker TupleInt String Boolean
+-- | ```
 newtype Joker :: forall k1 k2. (k1 -> Type) -> k2 -> k1 -> Type
 newtype Joker g a b = Joker (g b)
 
