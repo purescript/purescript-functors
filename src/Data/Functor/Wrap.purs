@@ -20,3 +20,6 @@ instance showWrap :: Show (p a b) => Show (Wrap p a b) where
 
 instance functorWrap :: FunctorRight p => Functor (Wrap p a) where
   map f (Wrap a) = Wrap (rmap f a)
+
+instance functorRightWrap :: FunctorRight p => FunctorRight (Wrap p) where
+  rmap = map
