@@ -7,6 +7,8 @@ import Data.Newtype (class Newtype)
 
 -- | Lifts a type that takes a single type parameter to a type that takes
 -- | two type parameters where the second parameter is a phantom type.
+-- | If you want the first parameter to be the phantom type instead of
+-- | the second type parameter, see the `Joker` newtype.
 -- |
 -- | ```purescript
 -- | data Box a = Box a
