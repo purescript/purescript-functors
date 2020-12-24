@@ -3,7 +3,13 @@ module Data.Functor.Product2 where
 import Prelude
 import Data.Functor.FunctorRight (class FunctorRight, rmap)
 
--- | The Product of two `Bifunctor`s.
+-- | The Product of two types that both take two type parameters (e.g. `Either`,
+-- | `Tuple, etc.) where both type parameters are the same.
+-- |
+-- | ```purescript
+-- | Product2 (Tuple 4 true) (Right false) :: Product2 Tuple Either Int Boolean
+-- | Product2 (Tuple 4 true) (Left      8) :: Product2 Tuple Either Int Boolean
+-- | ```
 data Product2 :: forall k1 k2. (k1 -> k2 -> Type) -> (k1 -> k2 -> Type) -> k1 -> k2 -> Type
 data Product2 f g a b = Product2 (f a b) (g a b)
 
