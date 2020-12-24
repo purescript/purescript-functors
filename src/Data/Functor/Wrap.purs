@@ -5,7 +5,9 @@ import Prelude
 import Data.Functor.FunctorRight (class FunctorRight, rmap)
 import Data.Newtype (class Newtype)
 
--- | Provides a `Functor` over the second argument of a `Bifunctor`.
+-- | Given a type that takes two type parameters, `p`, provides a `Functor`
+-- | over the second type parameter, `b` as opposed to the first type
+-- | parameter, `a`.
 newtype Wrap :: forall k1 k2. (k1 -> k2 -> Type) -> k1 -> k2 -> Type
 newtype Wrap p a b = Wrap (p a b)
 
