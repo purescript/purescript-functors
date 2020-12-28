@@ -23,7 +23,7 @@ import Data.Newtype (class Newtype, un)
 -- | Joker (TupleInt (Tuple 4 true)) :: Joker TupleInt Int    Boolean
 -- | Joker (TupleInt (Tuple 4 true)) :: Joker TupleInt String Boolean
 -- | ```
-newtype Joker :: forall k1 k2. (k1 -> Type) -> k2 -> k1 -> Type
+newtype Joker :: forall k. (Type -> Type) -> k -> Type -> Type
 newtype Joker g a b = Joker (g b)
 
 derive instance newtypeJoker :: Newtype (Joker f a b) _

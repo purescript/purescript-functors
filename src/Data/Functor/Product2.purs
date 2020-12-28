@@ -10,7 +10,7 @@ import Data.Functor.FunctorRight (class FunctorRight, rmap)
 -- | Product2 (Tuple 4 true) (Right false) :: Product2 Tuple Either Int Boolean
 -- | Product2 (Tuple 4 true) (Left      8) :: Product2 Tuple Either Int Boolean
 -- | ```
-data Product2 :: forall k1 k2. (k1 -> k2 -> Type) -> (k1 -> k2 -> Type) -> k1 -> k2 -> Type
+data Product2 :: forall k. (k -> Type -> Type) -> (k -> Type -> Type) -> k -> Type -> Type
 data Product2 f g a b = Product2 (f a b) (g a b)
 
 derive instance eqProduct2 :: (Eq (f a b), Eq (g a b)) => Eq (Product2 f g a b)

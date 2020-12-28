@@ -8,7 +8,7 @@ import Data.Newtype (class Newtype)
 -- | Given a type that takes two type parameters, `p`, provides a `Functor`
 -- | over the second type parameter, `b` as opposed to the first type
 -- | parameter, `a`.
-newtype Wrap :: forall k1 k2. (k1 -> k2 -> Type) -> k1 -> k2 -> Type
+newtype Wrap :: forall k. (k -> Type -> Type) -> k -> Type -> Type
 newtype Wrap p a b = Wrap (p a b)
 
 derive instance newtypeWrap :: Newtype (Wrap p a b) _
