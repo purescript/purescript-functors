@@ -6,8 +6,11 @@ Notable changes to this project are documented in this file. The format is based
 
 Breaking changes:
 - Added support for PureScript 0.14 and dropped support for all previous versions (#24)
+- Ported `Clown`, `Joker`, and `Product` (named `Product2` here) from `purescript-bifunctors`/`purescript-profunctor` to this repo (#27)
+- Ported `purescript-profunctor`'s `Costar` to this repo (#27)
 
 New features:
+- Added `FunctorRight` type class (#27)
 
 Bugfixes:
 
