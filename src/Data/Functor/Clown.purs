@@ -23,7 +23,7 @@ import Data.Newtype (class Newtype)
 -- | Clown (TupleInt (Tuple 4 true)) :: Clown TupleInt Boolean Int
 -- | Clown (TupleInt (Tuple 4 true)) :: Clown TupleInt Boolean String
 -- | ```
-newtype Clown :: forall k. (k -> Type) -> k -> Type -> Type
+newtype Clown :: (Type -> Type) -> Type -> Type -> Type
 newtype Clown f a b = Clown (f a)
 
 derive instance newtypeClown :: Newtype (Clown f a b) _
