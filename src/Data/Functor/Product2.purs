@@ -20,5 +20,8 @@ derive instance ordProduct2 :: (Ord (f a b), Ord (g a b)) => Ord (Product2 f g a
 instance showProduct2 :: (Show (f a b), Show (g a b)) => Show (Product2 f g a b) where
   show (Product2 x y) = "(Product2 " <> show x <> " " <> show y <> ")"
 
+instance functorProduct2 :: (Functor (f a), Functor (g a)) => Functor (Product2 f g a) where
+  map f (Product2 x y) = Product2 (map f x) (map f y)
+
 instance functorRight :: (FunctorRight f, FunctorRight g) => FunctorRight (Product2 f g) where
   rmap f (Product2 x y) = Product2 (rmap f x) (rmap f y)
