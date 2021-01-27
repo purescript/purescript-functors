@@ -5,24 +5,10 @@ import Prelude
 import Data.Functor.FunctorRight (class FunctorRight)
 import Data.Newtype (class Newtype)
 
--- | Lifts a type that takes a single type parameter to a type that takes
--- | two type parameters where the second parameter is a phantom type.
--- | If you want the first parameter to be the phantom type instead of
--- | the second type parameter, see the `Joker` newtype.
--- |
--- | ```purescript
--- | data Box a = Box a
--- | -- these values are the same at runtime
--- |        Box a  ::       Box a
--- | Clown (Box a) :: Clown Box a Int
--- | Clown (Box a) :: Clown Box a String
--- |
--- | newtype TupleInt a = TupleInt (Tuple Int a)
--- | -- these values are the same at runtime
--- |        TupleInt (Tuple 4 true) ::        TupleInt Boolean
--- | Clown (TupleInt (Tuple 4 true)) :: Clown TupleInt Boolean Int
--- | Clown (TupleInt (Tuple 4 true)) :: Clown TupleInt Boolean String
--- | ```
+-- | This advance type's usage and its relation to `Joker` is best understood
+-- | by reading through "Clowns to the Left, Jokers to the Right (Functional
+-- | Pearl)"
+-- | https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.475.6134&rep=rep1&type=pdf
 newtype Clown :: (Type -> Type) -> Type -> Type -> Type
 newtype Clown f a b = Clown (f a)
 
