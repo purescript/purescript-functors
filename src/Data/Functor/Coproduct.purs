@@ -7,13 +7,8 @@ import Control.Extend (class Extend, extend)
 import Data.Bifunctor (bimap)
 import Data.Either (Either(..))
 import Data.Eq (class Eq1, eq1)
-import Data.Foldable (class Foldable, foldMap, foldl, foldr)
-import Data.FoldableWithIndex (class FoldableWithIndex, foldMapWithIndex, foldlWithIndex, foldrWithIndex)
-import Data.FunctorWithIndex (class FunctorWithIndex, mapWithIndex)
 import Data.Newtype (class Newtype)
 import Data.Ord (class Ord1, compare1)
-import Data.Traversable (class Traversable, traverse, sequence)
-import Data.TraversableWithIndex (class TraversableWithIndex, traverseWithIndex)
 
 -- | `Coproduct f g` is the coproduct of two functors `f` and `g`
 newtype Coproduct :: forall k. (k -> Type) -> (k -> Type) -> k -> Type
@@ -72,9 +67,6 @@ instance showCoproduct :: (Show (f a), Show (g a)) => Show (Coproduct f g a) whe
 instance functorCoproduct :: (Functor f, Functor g) => Functor (Coproduct f g) where
   map f (Coproduct e) = Coproduct (bimap (map f) (map f) e)
 
-instance functorWithIndexCoproduct :: (FunctorWithIndex a f, FunctorWithIndex b g) => FunctorWithIndex (Either a b) (Coproduct f g) where
-  mapWithIndex f (Coproduct e) = Coproduct (bimap (mapWithIndex (f <<< Left)) (mapWithIndex (f <<< Right)) e)
-
 instance extendCoproduct :: (Extend f, Extend g) => Extend (Coproduct f g) where
   extend f = Coproduct <<< coproduct
     (Left <<< extend (f <<< Coproduct <<< Left))
@@ -82,26 +74,3 @@ instance extendCoproduct :: (Extend f, Extend g) => Extend (Coproduct f g) where
 
 instance comonadCoproduct :: (Comonad f, Comonad g) => Comonad (Coproduct f g) where
   extract = coproduct extract extract
-
-instance foldableCoproduct :: (Foldable f, Foldable g) => Foldable (Coproduct f g) where
-  foldr f z = coproduct (foldr f z) (foldr f z)
-  foldl f z = coproduct (foldl f z) (foldl f z)
-  foldMap f = coproduct (foldMap f) (foldMap f)
-
-instance foldableWithIndexCoproduct :: (FoldableWithIndex a f, FoldableWithIndex b g) => FoldableWithIndex (Either a b) (Coproduct f g) where
-  foldrWithIndex f z = coproduct (foldrWithIndex (f <<< Left) z) (foldrWithIndex (f <<< Right) z)
-  foldlWithIndex f z = coproduct (foldlWithIndex (f <<< Left) z) (foldlWithIndex (f <<< Right) z)
-  foldMapWithIndex f = coproduct (foldMapWithIndex (f <<< Left)) (foldMapWithIndex (f <<< Right))
-
-instance traversableCoproduct :: (Traversable f, Traversable g) => Traversable (Coproduct f g) where
-  traverse f = coproduct
-    (map (Coproduct <<< Left) <<< traverse f)
-    (map (Coproduct <<< Right) <<< traverse f)
-  sequence = coproduct
-    (map (Coproduct <<< Left) <<< sequence)
-    (map (Coproduct <<< Right) <<< sequence)
-
-instance traversableWithIndexCoproduct :: (TraversableWithIndex a f, TraversableWithIndex b g) => TraversableWithIndex (Either a b) (Coproduct f g) where
-  traverseWithIndex f = coproduct
-    (map (Coproduct <<< Left) <<< traverseWithIndex (f <<< Left))
-    (map (Coproduct <<< Right) <<< traverseWithIndex (f <<< Right))
