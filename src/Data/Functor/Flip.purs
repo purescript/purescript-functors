@@ -37,10 +37,8 @@ instance biapplicativeFlip :: Biapplicative p => Biapplicative (Flip p) where
 instance contravariantFlip :: Profunctor p => Contravariant (Flip p b) where
   cmap f (Flip a) = Flip (lcmap f a)
 
-instance semigroupoidFlip :: Semigroupoid p => Semigroupoid (Flip p)
-  where
+instance semigroupoidFlip :: Semigroupoid p => Semigroupoid (Flip p) where
   compose (Flip a) (Flip b) = Flip $ compose b a
 
-instance categoryFlip :: Category p => Category (Flip p)
-  where
+instance categoryFlip :: Category p => Category (Flip p) where
   identity = Flip identity
