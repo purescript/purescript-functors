@@ -8,6 +8,8 @@ Breaking changes:
 
 New features:
 
+- `Semigroupoid` and `Category` instances for `Flip` (#33)
+
 Bugfixes:
 
 Other improvements:
