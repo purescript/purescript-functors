@@ -8,11 +8,14 @@ Breaking changes:
 
 New features:
 
-- `Semigroupoid` and `Category` instances for `Flip` (#33)
-
 Bugfixes:
 
 Other improvements:
+
+## [v4.1.0](https://github.com/purescript/purescript-functors/releases/tag/v4.1.0) - 2021-03-13
+
+New features:
+- `Semigroupoid` and `Category` instances for `Flip` (#33)
 
 ## [v4.0.0](https://github.com/purescript/purescript-functors/releases/tag/v4.0.0) - 2021-02-26
 
