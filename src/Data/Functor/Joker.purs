@@ -50,7 +50,7 @@ instance biapplicativeJoker :: Applicative g => Biapplicative (Joker g) where
   bipure _ b = Joker (pure b)
 
 instance profunctorJoker :: Functor f => Profunctor (Joker f) where
-  dimap f g (Joker a) = Joker (map g a)
+  dimap _ g (Joker a) = Joker (map g a)
 
 instance choiceJoker :: Functor f => Choice (Joker f) where
   left  (Joker f) = Joker $ map Left f
