@@ -11,7 +11,11 @@ New features:
 Bugfixes:
 
 Other improvements:
-- Fix warnings revealed by v0.14.1 PS release (#34 by @JordanMartinez)
+
+## [v4.1.1](https://github.com/purescript/purescript-functors/releases/tag/v4.1.1) - 2021-04-20
+
+Other improvements:
+- Fix warnings revealed by v0.14.1 PureScript release (#34 by @JordanMartinez)
 
 ## [v4.1.0](https://github.com/purescript/purescript-functors/releases/tag/v4.1.0) - 2021-03-13
 
