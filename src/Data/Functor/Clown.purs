@@ -38,7 +38,7 @@ instance biapplicativeClown :: Applicative f => Biapplicative (Clown f) where
   bipure a _ = Clown (pure a)
 
 instance profunctorClown :: Contravariant f => Profunctor (Clown f) where
-  dimap f g (Clown a) = Clown (cmap f a)
+  dimap f _ (Clown a) = Clown (cmap f a)
 
 hoistClown :: forall f g a b. (f ~> g) -> Clown f a b -> Clown g a b
 hoistClown f (Clown a) = Clown (f a)
