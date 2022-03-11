@@ -17,21 +17,21 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-bifunctors": "^5.0.0",
-    "purescript-const": "^5.0.0",
-    "purescript-contravariant": "^5.0.0",
-    "purescript-control": "^5.0.0",
-    "purescript-distributive": "^5.0.0",
-    "purescript-either": "^5.0.0",
-    "purescript-invariant": "^5.0.0",
-    "purescript-maybe": "^5.0.0",
-    "purescript-newtype": "^4.0.0",
-    "purescript-prelude": "^5.0.0",
-    "purescript-profunctor": "^5.0.0",
-    "purescript-tuples": "^6.0.0",
-    "purescript-unsafe-coerce": "^5.0.0"
+    "purescript-bifunctors": "master",
+    "purescript-const": "master",
+    "purescript-contravariant": "master",
+    "purescript-control": "master",
+    "purescript-distributive": "master",
+    "purescript-either": "master",
+    "purescript-invariant": "master",
+    "purescript-maybe": "master",
+    "purescript-newtype": "master",
+    "purescript-prelude": "master",
+    "purescript-profunctor": "master",
+    "purescript-tuples": "master",
+    "purescript-unsafe-coerce": "master"
   },
   "devDependencies": {
-    "purescript-assert": "^5.0.0"
+    "purescript-assert": "master"
   }
 }
