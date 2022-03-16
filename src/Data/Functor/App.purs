@@ -8,7 +8,7 @@ import Control.Apply (lift2)
 import Control.Comonad (class Comonad)
 import Control.Extend (class Extend)
 import Control.Lazy (class Lazy)
-import Control.MonadPlus (class MonadZero, class MonadPlus)
+import Control.MonadPlus (class MonadPlus)
 import Control.Plus (class Plus)
 import Data.Eq (class Eq1)
 import Data.Newtype (class Newtype)
@@ -41,8 +41,6 @@ instance semigroupApp :: (Apply f, Semigroup a) => Semigroup (App f a) where
 
 instance monoidApp :: (Applicative f, Monoid a) => Monoid (App f a) where
   mempty = App (pure mempty)
-
-instance monadZeroApp :: MonadZero f => MonadZero (App f)
 
 derive newtype instance functorApp :: Functor f => Functor (App f)
 derive newtype instance applyApp :: Apply f => Apply (App f)
