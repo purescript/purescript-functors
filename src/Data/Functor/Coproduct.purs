@@ -34,7 +34,7 @@ bihoistCoproduct
    . (f ~> h)
   -> (g ~> i)
   -> Coproduct f g
-  ~> Coproduct h i
+       ~> Coproduct h i
 bihoistCoproduct natF natG (Coproduct e) = Coproduct (bimap natF natG e)
 
 derive instance newtypeCoproduct :: Newtype (Coproduct f g a) _

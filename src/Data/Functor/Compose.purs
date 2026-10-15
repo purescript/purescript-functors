@@ -20,7 +20,7 @@ bihoistCompose
   => (f ~> h)
   -> (g ~> i)
   -> Compose f g
-  ~> Compose h i
+       ~> Compose h i
 bihoistCompose natF natG (Compose fga) = Compose (natF (map natG fga))
 
 derive instance newtypeCompose :: Newtype (Compose f g a) _

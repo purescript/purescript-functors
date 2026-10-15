@@ -21,7 +21,7 @@ bihoistProduct
    . (f ~> h)
   -> (g ~> i)
   -> Product f g
-  ~> Product h i
+       ~> Product h i
 bihoistProduct natF natG (Product e) = Product (bimap natF natG e)
 
 derive instance newtypeProduct :: Newtype (Product f g a) _
