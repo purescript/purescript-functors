@@ -12,6 +12,8 @@ Bugfixes:
 
 Other improvements:
 
+- Migrate from Bower/Pulp to Spago and update CI and formatting tools.
+
 ## [v5.0.0](https://github.com/purescript/purescript-functors/releases/tag/v5.0.0) - 2022-04-27
 
 Breaking changes:
@@ -101,4 +103,3 @@ Fixes for pursuit.
 ## [v0.1.0](https://github.com/purescript/purescript-functors/releases/tag/v0.1.0) - 2015-08-19
 
 Initial versioned release
-
