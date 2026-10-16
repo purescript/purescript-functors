@@ -30,11 +30,11 @@ coproduct _ g (Coproduct (Right b)) = g b
 
 -- | Change the underlying functors in a coproduct
 bihoistCoproduct
-  :: forall f g h i
+  :: forall f g h i a
    . (f ~> h)
   -> (g ~> i)
-  -> Coproduct f g
-       ~> Coproduct h i
+  -> Coproduct f g a
+  -> Coproduct h i a
 bihoistCoproduct natF natG (Coproduct e) = Coproduct (bimap natF natG e)
 
 derive instance newtypeCoproduct :: Newtype (Coproduct f g a) _
