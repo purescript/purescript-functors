@@ -2,7 +2,7 @@
 
 Notable changes to this project are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased](https://github.com/purescript/purescript-functors/compare/v5.0.1...HEAD)
 
 Breaking changes:
 
@@ -23,6 +23,7 @@ Bugfixes:
 Other improvements:
 
 - Migrate from Bower/Pulp to Spago and update CI and formatting tools. (#38 by @thomashoneyman)
+- Clarify the `bihoistCompose`, `bihoistCoproduct`, and `bihoistProduct` type signatures without changing compatibility or runtime behavior. (#38 by @thomashoneyman)
 
 ## [v5.0.0](https://github.com/purescript/purescript-functors/releases/tag/v5.0.0) - 2022-04-27
 
