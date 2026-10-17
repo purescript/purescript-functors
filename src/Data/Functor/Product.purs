@@ -17,11 +17,11 @@ product :: forall f g a. f a -> g a -> Product f g a
 product fa ga = Product (Tuple fa ga)
 
 bihoistProduct
-  :: forall f g h i
+  :: forall f g h i a
    . (f ~> h)
   -> (g ~> i)
-  -> Product f g
-  ~> Product h i
+  -> Product f g a
+  -> Product h i a
 bihoistProduct natF natG (Product e) = Product (bimap natF natG e)
 
 derive instance newtypeProduct :: Newtype (Product f g a) _

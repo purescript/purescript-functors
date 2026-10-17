@@ -53,7 +53,7 @@ instance profunctorJoker :: Functor f => Profunctor (Joker f) where
   dimap _ g (Joker a) = Joker (map g a)
 
 instance choiceJoker :: Functor f => Choice (Joker f) where
-  left  (Joker f) = Joker $ map Left f
+  left (Joker f) = Joker $ map Left f
   right (Joker f) = Joker $ map Right f
 
 hoistJoker :: forall f g a b. (f ~> g) -> Joker f a b -> Joker g a b
