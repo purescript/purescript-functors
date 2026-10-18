@@ -15,12 +15,12 @@ newtype Compose :: forall k1 k2. (k2 -> Type) -> (k1 -> k2) -> k1 -> Type
 newtype Compose f g a = Compose (f (g a))
 
 bihoistCompose
-  :: forall f g h i
+  :: forall f g h i a
    . Functor f
   => (f ~> h)
   -> (g ~> i)
-  -> Compose f g
-  ~> Compose h i
+  -> Compose f g a
+  -> Compose h i a
 bihoistCompose natF natG (Compose fga) = Compose (natF (map natG fga))
 
 derive instance newtypeCompose :: Newtype (Compose f g a) _
